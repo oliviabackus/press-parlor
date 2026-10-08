@@ -1,26 +1,143 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cream: #fff8ef;
+  --cream-deep: #f3e4d2;
+  --pink: #f8c9d6;
+  --pink-deep: #e892aa;
+  --mint: #c9f0df;
+  --mint-deep: #7dceb0;
+  --chocolate: #3c2415;
+  --chocolate-soft: #6a4332;
+  --vanilla: #fffdf9;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-cream: var(--cream);
+  --color-cream-deep: var(--cream-deep);
+  --color-pink: var(--pink);
+  --color-pink-deep: var(--pink-deep);
+  --color-mint: var(--mint);
+  --color-mint-deep: var(--mint-deep);
+  --color-chocolate: var(--chocolate);
+  --color-chocolate-soft: var(--chocolate-soft);
+  --color-vanilla: var(--vanilla);
+  --font-sans: var(--font-nunito);
+  --font-display: var(--font-fraunces);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cream);
+  color: var(--chocolate);
+}
+
+.parlor-sprinkles {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 8% 12%, #f8c9d6 0 7px, transparent 8px),
+    radial-gradient(circle at 92% 18%, #c9f0df 0 6px, transparent 7px),
+    radial-gradient(circle at 18% 78%, #f6d98a 0 5px, transparent 6px),
+    radial-gradient(circle at 84% 70%, #9ec9f5 0 6px, transparent 7px),
+    radial-gradient(circle at 48% 8%, #f6d98a 0 4px, transparent 5px);
+  opacity: 0.85;
+}
+
+.parlor-floor {
+  background-color: #f8c9d6;
+  background-image:
+    linear-gradient(45deg, #fff8ef 25%, transparent 25%),
+    linear-gradient(-45deg, #fff8ef 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #fff8ef 75%),
+    linear-gradient(-45deg, transparent 75%, #fff8ef 75%);
+  background-size: 28px 28px;
+  background-position:
+    0 0,
+    0 14px,
+    14px -14px,
+    -14px 0;
+}
+
+.parlor-field {
+  border: 2px solid transparent;
+  background: var(--vanilla);
+  box-shadow: 0 1px 0 rgb(60 36 21 / 0.04);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.parlor-field:hover,
+.parlor-field:focus-within {
+  border-color: var(--pink-deep);
+  background: #fff;
+  box-shadow: 0 10px 24px rgb(232 146 170 / 0.28);
+  transform: translateY(-2px);
+}
+
+.parlor-drop {
+  border: 2px dashed var(--mint-deep);
+  background:
+    linear-gradient(180deg, rgb(201 240 223 / 0.45), rgb(255 248 239 / 0.2)),
+    var(--vanilla);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.parlor-drop:hover,
+.parlor-drop:focus-within,
+.parlor-drop.is-hot {
+  border-color: var(--pink-deep);
+  border-style: solid;
+  box-shadow: 0 12px 28px rgb(125 206 176 / 0.35);
+  transform: translateY(-2px);
+}
+
+.parlor-submit {
+  animation: parlor-pulse 1.8s ease-out infinite;
+}
+
+.parlor-submit:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.parlor-submit:disabled {
+  animation: none;
+  transform: none;
+}
+
+@keyframes parlor-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(232 146 170 / 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgb(232 146 170 / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(232 146 170 / 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parlor-field,
+  .parlor-drop,
+  .parlor-submit {
+    transition: none;
+    animation: none;
+  }
+
+  .parlor-field:hover,
+  .parlor-field:focus-within,
+  .parlor-drop:hover,
+  .parlor-drop:focus-within,
+  .parlor-drop.is-hot,
+  .parlor-submit:hover:not(:disabled) {
+    transform: none;
+  }
 }
